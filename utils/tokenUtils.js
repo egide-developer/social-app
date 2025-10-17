@@ -1,14 +1,14 @@
-//utils/tokenUtils.js
-import RefreshToken from "../models/RefreshToken";
-import { generateRefreshTokenRaw, hashToken, refreshTokenExpiryDate } from "./jwt";
+import RefreshToken from "../models/RefreshToken.js";
+import { generateRefreshTokenRaw, hashToken, refreshTokenExpiryDate } from "./jwt.js";
 
 /**
- * Create refresh token raw, store hashed, return raw + expiry
+ * Create refresh token, store hashed, return raw + expiry
  */
-export async function createRefreshTokenForUser(userId, userAgent = "", minutesExpiry = 20) {
+export async function createRefreshTokenForUser(userId, userAgent = "") {
     const raw = generateRefreshTokenRaw();
     const hashed = hashToken(raw);
-    const expiresAt = refreshTokenExpiryDate(); // uses REFRESH_TOKEN_EXPIRES_MIN
+    const expiresAt = refreshTokenExpiryDate();
+
     const rt = new RefreshToken({
         user: userId,
         tokenHash: hashed,

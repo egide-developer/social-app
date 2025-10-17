@@ -1,4 +1,3 @@
-// utils/mailer.js
 import nodemailer from "nodemailer";
 
 const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, EMAIL_FROM } = process.env;
@@ -13,10 +12,12 @@ if (SMTP_HOST && SMTP_USER) {
     });
 }
 
+/**
+ * Send email or fallback to console
+ */
 export async function sendEmail({ to, subject, text, html }) {
     if (!transporter) {
-        // fallback: log the message. Useful for local dev.
-        console.log("[MAIL-FALLBACK] to:", to, "subject:", subject, "text:", text);
+        console.log("[MAIL-FALLBACK]", { to, subject, text });
         return;
     }
     await transporter.sendMail({

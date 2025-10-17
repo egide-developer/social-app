@@ -1,7 +1,8 @@
-//config/db.js
-
 import mongoose from "mongoose";
 
+/**
+ * Connect to MongoDB using MONGO_URI
+ */
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
